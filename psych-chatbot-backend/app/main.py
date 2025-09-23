@@ -7,6 +7,10 @@ app = FastAPI()
 class Query(BaseModel):
     text: str
 
+@app.get("/")
+def read_root():
+    return {"message": "hello world"}
+
 @app.post("/chat")
 async def chat(query: Query):
     results = query_rag(query.text)

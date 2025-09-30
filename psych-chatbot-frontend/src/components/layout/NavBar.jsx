@@ -57,6 +57,7 @@ const NavBar = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
         // width: "100%",
       }}
     >

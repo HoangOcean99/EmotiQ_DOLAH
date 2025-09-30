@@ -1,14 +1,12 @@
 import { useState } from 'react'
-
+import Home from './pages/Home'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div className="border-2 border-red-500 p-4 rounded-lg">
-        Hello Tailwind!
-      </div>
+      <Home/>
     </>
   )
 }

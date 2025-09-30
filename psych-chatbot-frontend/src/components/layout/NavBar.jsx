@@ -58,7 +58,13 @@ const NavBar = () => {
         justifyContent: "space-between",
         alignItems: "center",
         backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
-        // width: "100%",
+        width: "100%",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        borderBottom: "2px solid #FEEFD6",
       }}
     >
       <div

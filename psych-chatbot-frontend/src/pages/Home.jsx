@@ -8,10 +8,9 @@ const Home = () => {
       <NavBar />
       <div
         style={{
-          minHeight: "100vh",
           width: "100vw",
           margin: "0",
-          padding: "0",
+          padding: "110px 0 0 0",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
         }}
       >

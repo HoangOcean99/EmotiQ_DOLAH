@@ -1,8 +1,10 @@
 import React from "react";
-import NavBar from "../components/layout/NavBar";
+import NavBar from "../../components/layout/NavBar"
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <>
       <NavBar />
@@ -24,7 +26,7 @@ const Home = () => {
                 EmotiQ là nền tảng AI hỗ trợ sức khoẻ tinh thần, luôn sẵn sàng
                 đồng hành cùng bạn bất cứ lúc nào !!!
               </p>
-              <button className="start-button">
+              <button className="start-button" onClick={() => navigate('/login')}>
                 Bắt đầu hành trình của bạn 💓
               </button>
 

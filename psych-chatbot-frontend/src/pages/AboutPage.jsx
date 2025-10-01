@@ -1,7 +1,9 @@
 import React from "react";
 import NavBar from "../components/layout/NavBar";
+import { useNavigate } from "react-router-dom";
 
 const AboutPage = () => {
+  const navigate = new useNavigate();
   return (
     <div>
       <NavBar />
@@ -9,8 +11,8 @@ const AboutPage = () => {
         style={{
           minHeight: "100vh",
           width: "100vw",
-          margin: 0,
-          padding: "120px 5% 60px",
+          margin: "0px",
+          padding: "200px 5% 60px",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
           boxSizing: "border-box",
         }}
@@ -179,6 +181,7 @@ const AboutPage = () => {
               cursor: "pointer",
               boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
             }}
+            onClick={() => navigate('/login')}
           >
             Explore EmotiQ
           </button>

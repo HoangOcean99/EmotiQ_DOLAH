@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "../components/layout/NavBar";
+import "./Home.css";
 
 const AboutPage = () => {
   return (
@@ -10,7 +11,7 @@ const AboutPage = () => {
           minHeight: "100vh",
           width: "100vw",
           margin: 0,
-          padding: "120px 5% 60px",
+          padding: "20% 5% 60px",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
           boxSizing: "border-box",
         }}
@@ -164,10 +165,31 @@ const AboutPage = () => {
               We empower your experiences with encouragement and positivity.
             </p>
           </div>
+
+          {/* Card 6 */}
+          <div>
+            <div style={{ display: "flex" }}>
+              <img src="/SelfAwareness.png" width={"50px"} />
+              <h3
+                style={{
+                  margin: "10px 0",
+                  fontSize: "20px",
+                  fontWeight: "700",
+                  color: "black",
+                }}
+              >
+                Self-Awareness
+              </h3>
+            </div>
+            <p style={{ color: "#555", fontSize: "15px", lineHeight: 1.6 }}>
+              We empower your experiences with encouragement and positivity.
+            </p>
+          </div>
         </div>
 
         <div style={{ marginTop: "60px", textAlign: "center" }}>
           <button
+            className="start-button"
             style={{
               backgroundColor: "#DE8A4D",
               border: "none",
@@ -180,7 +202,7 @@ const AboutPage = () => {
               boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
             }}
           >
-            Explore EmotiQ
+            Khám phá EmotiQ
           </button>
         </div>
       </div>

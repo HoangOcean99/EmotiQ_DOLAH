@@ -1,18 +1,45 @@
 # Virtual environment
+.venv/
 venv/
+ENV/
+env/
 
-# Python bytecode
+# Python cache
 __pycache__/
 *.py[cod]
+*$py.class
 
-# Environment variables
-.env
-.env.*
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
 
 # Logs
 *.log
 
-# IDE / OS
+# IDE/editor configs
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
+
+# MacOS
 .DS_Store
+
+# Pytest cache
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Misc
+*.swp

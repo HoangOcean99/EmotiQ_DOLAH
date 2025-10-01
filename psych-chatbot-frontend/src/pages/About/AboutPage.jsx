@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../components/layout/NavBar";
+import NavBar from "../../components/layout/NavBar";
 import { useNavigate } from "react-router-dom";
 
 const AboutPage = () => {
@@ -187,7 +187,7 @@ const AboutPage = () => {
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

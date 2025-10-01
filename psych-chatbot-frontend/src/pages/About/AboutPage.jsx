@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../components/layout/NavBar";
-import "./Home.css";
+import NavBar from "../../components/layout/NavBar";
+import "./About.css";
 
 const AboutPage = () => {
   return (
@@ -21,7 +21,7 @@ const AboutPage = () => {
             <h1
               style={{
                 color: "#543725",
-                fontSize: "48px",
+                fontSize: "55px",
                 fontWeight: "bold",
                 marginBottom: "20px",
                 marginTop: "-10px",

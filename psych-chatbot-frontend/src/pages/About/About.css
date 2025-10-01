@@ -1,0 +1,32 @@
+/* Animation */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.start-button {
+  animation: bounce 2s ease-in-out infinite;
+  justify-content: center;
+  border: none;
+  font-size: 28px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #de8a4d;
+  border-radius: 50px;
+  color: white;
+  padding: 18px 40px;
+  margin: 18px 0px 0px 0px;
+  box-shadow: 0 4px 15px rgba(222, 138, 77, 0.3);
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 8px 25px rgba(222, 138, 77, 0.5) !important;
+  animation: none !important;
+}

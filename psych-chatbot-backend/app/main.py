@@ -1,98 +1,41 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from sentence_transformers import SentenceTransformer
-from qdrant_client import QdrantClient
-from qdrant_client.models import PointStruct, Distance, VectorParams
-from qdrant_client.http.exceptions import UnexpectedResponse
+# thêm import ở đầu file nếu chưa có
+import numpy as np
+from bs4 import BeautifulSoup  # optional, để fetch full article text (pip install beautifulsoup4)
 
+# -------- helper --------
+def cosine_sim(a, b):
+    a = np.array(a, dtype=float)
+    b = np.array(b, dtype=float)
+    if np.linalg.norm(a) == 0 or np.linalg.norm(b) == 0:
+        return 0.0
+    return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
-import uuid
-import requests
-
-app = FastAPI()
-
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-qdrant = None
-try:
-    qdrant = QdrantClient(
-        url="https://d7290930-dcf4-4366-8306-053306375c21.europe-west3-0.gcp.cloud.qdrant.io",
-        api_key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.8bhRFPtvi4GXj2UV3P_sy-uK-K6pqz1uJjDYvyymd28",
-        timeout=10
-    )
-
-    # Thử gọi info để check kết nối
-    info = qdrant.get_collections()
-    print("✅ Kết nối thành công Qdrant:", info)
-
-except UnexpectedResponse as e:
-    print("❌ Lỗi từ Qdrant API:", e)
-except Exception as e:
-    print("❌ Không kết nối được Qdrant:", e)
-
-
-
-if qdrant:
+def fetch_page_text(url, max_chars=2000):
+    """
+    (optional) cố gắng fetch nội dung trang để có text đầy đủ hơn.
+    Nếu site block hoặc lỗi thì fallback về None.
+    """
     try:
-        collections = qdrant.get_collections().collections
-        collection_names = [c.name for c in collections]
+        res = requests.get(url, timeout=5, headers={"User-Agent":"Mozilla/5.0"})
+        if res.status_code != 200:
+            return None
+        soup = BeautifulSoup(res.text, "html.parser")
+        # ghép các đoạn p lại
+        paragraphs = soup.find_all("p")
+        text = " ".join(p.get_text(separator=" ", strip=True) for p in paragraphs)
+        if not text:
+            # nếu không có p, lấy meta description
+            meta = soup.find("meta", {"name":"description"}) or soup.find("meta", {"property":"og:description"})
+            if meta and meta.get("content"):
+                text = meta.get("content")
+        if not text:
+            return None
+        return text[:max_chars]
+    except Exception:
+        return None
 
-        if "chat" in collection_names:
-            print("⚠️ Collection 'chat' đã có")
-        else:
-            qdrant.create_collection(
-                collection_name="chat",
-                vectors_config=VectorParams(
-                    size=384,
-                    distance=Distance.COSINE
-                )
-            )
-            print("✅ Collection 'chat' đã tạo mới")
-    except Exception as e:
-        print("❌ Lỗi khi kiểm tra/tạo collection:", e)
-
-
-class TextInput(BaseModel):
-    text: str
-
-
-# them du lieu
-@app.post("/add_text")
-def add_text(item: TextInput):
-    if not qdrant:
-        return {"status": "error", "message": "Qdrant chưa kết nối"}
-
-    try:
-        # Encode văn bản thành vector
-        vector = model.encode(item.text).tolist()
-        point_id = str(uuid.uuid4())
-
-        # Thêm point vào Qdrant
-        qdrant.upsert(
-            collection_name="chat",
-            points=[
-                PointStruct(
-                    id=point_id,
-                    vector=vector,
-                    payload={"text": item.text}
-                )
-            ]
-        )
-
-        return {"status": "success", "id": point_id, "text": item.text}
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
-
-
-class QueryInput(BaseModel):
-    query: str
-    top_k: int = 3  # mặc định lấy 3 kết quả gần nhất
-
-
-GOOGLE_API_KEY = "AIzaSyB5vFZTdPG2daYieWZVT18dZ8rSdfxsTJE"
-GOOGLE_CX = "b1674b0b3f51c4adb"
-
-def google_search(query: str, num: int = 3):
+# -------- improved google_search --------
+def google_search(query: str, num: int = 10):
     url = "https://www.googleapis.com/customsearch/v1"
     params = {
         "key": GOOGLE_API_KEY,
@@ -100,72 +43,96 @@ def google_search(query: str, num: int = 3):
         "q": query,
         "num": num
     }
-    response = requests.get(url, params=params)
-    data = response.json()
+    resp = requests.get(url, params=params, timeout=8)
+    data = resp.json()
 
+    # debug: in ra toàn bộ data nếu cần
+    # print("CSE raw response:", data)
+
+    items = data.get("items", [])
     results = []
-    for item in data.get("items", []):
-        snippet = item.get("snippet", "")
-        link = item.get("link", "")
-        results.append({"text": snippet, "url": link})
+    for item in items:
+        title = item.get("title", "") or ""
+        snippet = item.get("snippet", "") or ""
+        link = item.get("link", "") or ""
+
+        # text chính để embed: ưu tiên fetch full page nếu khả dụng
+        page_text = fetch_page_text(link, max_chars=1500)
+        if page_text:
+            text_for_embedding = f"{title}. {page_text}"
+        else:
+            # fallback: title + snippet
+            text_for_embedding = f"{title}. {snippet}"
+
+        results.append({
+            "title": title,
+            "snippet": snippet,
+            "url": link,
+            "text": text_for_embedding
+        })
 
     return results
 
-
+# -------- updated /search endpoint --------
 @app.post("/search")
 def search_text(item: QueryInput):
     if not qdrant:
         return {"status": "error", "message": "Qdrant chưa kết nối"}
 
     try:
-        # Encode câu hỏi thành vector
         query_vector = model.encode(item.query).tolist()
 
-        # Tìm trong Qdrant
-        results = qdrant.search(
-            collection_name="chat",
-            query_vector=query_vector,
-            limit=item.top_k
-        )
-
+        # 1) Tìm trong Qdrant trước
+        results = qdrant.search(collection_name="chat", query_vector=query_vector, limit=max(10, item.top_k))
+        # Lọc theo score từ qdrant (user.threshold làm ngưỡng)
         hits = []
         for r in results:
-            payload = r.payload or {}
-            hits.append({
-                "text": payload.get("text", ""),
-                "score": r.score
-            })
+            # Nếu client trả score theo similarity, higher = better
+            if getattr(r, "score", None) is not None and r.score >= item.threshold:
+                hits.append({"text": r.payload.get("text", ""), "score": r.score, "url": r.payload.get("url")})
 
-        # Nếu không có kết quả trong DB → tìm Google
-        if not hits:
-            web_results = google_search(item.query, item.top_k)
+        if hits:
+            return {"status": "from_db", "query": item.query, "results": hits}
 
-            # Lưu vào Qdrant
-            for wr in web_results:
-                vector = model.encode(wr["text"]).tolist()
-                point_id = str(uuid.uuid4())
+        # 2) Nếu DB không đủ -> fallback Google + lọc bằng embedding similarity
+        web_results = google_search(item.query, num=10)
+
+        kept = []
+        web_threshold = 0.55  # ngưỡng filter cho web results (tune được)
+        for wr in web_results:
+            text = wr.get("text", "")
+            if not text:
+                continue
+            vec = model.encode(text).tolist()
+            sim = cosine_sim(query_vector, vec)
+            # lưu lại những result có similarity tốt
+            if sim >= web_threshold:
+                kept.append({"text": wr.get("text"), "url": wr.get("url"), "score": sim})
+
+        # nếu vẫn không có kết quả đủ tốt -> mở rộng tìm kiếm (giảm ngưỡng hoặc trả top web)
+        if not kept:
+            # Option: trả top web kết quả nhưng gắn low_confidence flag
+            fallback = [{"text": wr["text"], "url": wr["url"]} for wr in web_results[:item.top_k]]
+            return {"status": "from_web_low_confidence", "query": item.query, "results": fallback, "message": "Không tìm thấy kết quả đủ tương đồng, trả top web (low confidence)."}
+
+        # nếu có kết quả tốt -> upsert vào Qdrant để lần sau nhanh hơn
+        for k in kept:
+            try:
                 qdrant.upsert(
                     collection_name="chat",
                     points=[
                         PointStruct(
-                            id=point_id,
-                            vector=vector,
-                            payload={"text": wr["text"], "url": wr["url"]}
+                            id=str(uuid.uuid4()),
+                            vector=model.encode(k["text"]).tolist(),
+                            payload={"text": k["text"], "url": k.get("url")}
                         )
                     ]
                 )
+            except Exception as e:
+                # không block flow nếu upsert lỗi
+                print("Upsert web result error:", e)
 
-            return {
-                "status": "from_web",
-                "query": item.query,
-                "results": web_results
-            }
-
-        return {
-            "status": "from_db",
-            "query": item.query,
-            "results": hits
-        }
+        return {"status": "from_web", "query": item.query, "results": kept}
 
     except Exception as e:
         return {"status": "error", "message": str(e)}

@@ -25,20 +25,20 @@ const NavBar = () => {
     fontWeight: "600",
   };
 
-  const buttonLogIn_1 = {
-    ...buttonStyle,
-    backgroundColor: "#FBC78D",
-    borderRadius: "50px",
-    padding: "10px 17px",
-    margin: "0px 5px",
-  };
+  // const buttonLogIn_1 = {
+  //   ...buttonStyle,
+  //   backgroundColor: "#FBC78D",
+  //   borderRadius: "50px",
+  //   padding: "10px 17px",
+  //   margin: "0px 5px",
+  // };
 
-  const buttonLogIn_2 = {
-    ...buttonLogIn_1,
-    transform: "translateY(-5px) scale(1.05)",
-    boxShadow: "0 6px 12px rgba(251, 199, 141, 0.4)",
-    animation: "shake 0.5s ease-in-out",
-  };
+  // const buttonLogIn_2 = {
+  //   ...buttonLogIn_1,
+  //   transform: "translateY(-5px) scale(1.05)",
+  //   boxShadow: "0 6px 12px rgba(251, 199, 141, 0.4)",
+  //   animation: "shake 0.5s ease-in-out",
+  // };
 
   const buttonSignUp_1 = {
     ...buttonStyle,
@@ -76,7 +76,7 @@ const NavBar = () => {
           // justifyContent: "space-around",
           alignItems: "center",
           height: "100px",
-          margin: "1% 0px 0px 2%",
+          margin: "0% 0px 0px 2%",
         }}
       >
         <img
@@ -100,7 +100,7 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonStyle);
           }}
-          onClick={() => navigate('/homePage')}
+          onClick={() => navigate('/about')}
         >
           About
         </button>

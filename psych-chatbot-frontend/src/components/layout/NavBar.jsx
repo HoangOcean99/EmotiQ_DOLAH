@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
   const buttonStyle = {
     backgroundColor: "transparent", // Nền trong suốt
     border: "none",
@@ -81,9 +84,9 @@ const NavBar = () => {
           alt="EmotiQ"
           width={"80px"}
           height={"80px"}
-          style={{ objectFit: "contain" }} // Giữ tỉ lệ ảnh
+          style={{ objectFit: "contain" }}
         />
-        <p style={{ fontSize: "45px", color: "#543725", fontWeight: "bold" }}>
+        <p style={{ fontSize: "45px", color: "#543725", fontWeight: "bold", cursor: "pointer" }} onClick={() => navigate('/')}>
           EmotiQ
         </p>
       </div>
@@ -92,11 +95,12 @@ const NavBar = () => {
         <button
           style={buttonStyle}
           onMouseEnter={(e) => {
-            Object.assign(e.target.style, buttonHoverStyle); // Merge Object
+            Object.assign(e.target.style, buttonHoverStyle);
           }}
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonStyle);
           }}
+          onClick={() => navigate('/homePage')}
         >
           About
         </button>
@@ -108,6 +112,7 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonStyle);
           }}
+          onClick={() => navigate('/blog')}
         >
           Blog
         </button>
@@ -119,23 +124,24 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonStyle);
           }}
+          onClick={() => navigate('/contactus')}
         >
           Contact Us
         </button>
       </div>
 
       <div style={{ display: "flex", padding: "0px 3% 0px 0px" }}>
-        <button
+        {/* <button
           style={buttonLogIn_1}
           onMouseEnter={(e) => {
             Object.assign(e.target.style, buttonLogIn_2);
           }}
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonLogIn_1);
-          }}
+          }}   
         >
           Log in
-        </button>
+        </button> */}
         <button
           style={buttonSignUp_1}
           onMouseEnter={(e) => {
@@ -144,8 +150,10 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonSignUp_1);
           }}
+          onClick={() => navigate('/login')}
         >
-          Sign up
+          {/* Sign up */}
+          Log in
         </button>
       </div>
     </div>

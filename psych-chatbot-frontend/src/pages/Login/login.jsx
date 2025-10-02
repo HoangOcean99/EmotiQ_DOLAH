@@ -1,8 +1,19 @@
 import React from 'react';
 import './Login.css';
+import authen from '../../api/authentics.js'
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+  const navigate = useNavigate();
+  const handleLoginGoogle = async () => {
+    try {
+      const response = await authen.loginWithGoogle();
+    } catch (error) {
+    } finally {
+      navigate('/MainChat');
+    }
+  }
   return (
     <div className="login-wrapper">
       <div className="login-card">
@@ -16,8 +27,7 @@ const Login = () => {
           <h2>Login</h2>
           <p className="or"> login with social platforms</p>
           <div className="social-icons">
-            <button className="social-btn"><img src="src/assets/ggicon-Photoroom.png" alt="" /></button>
-            <button className="social-btn"><img src="src/assets/fbicon-Photoroom.png" alt="" class ="fb"/></button> 
+            <button className="social-btn" onClick={() => handleLoginGoogle()}><img src="src/assets/ggicon-Photoroom.png" alt="" /></button>
           </div>
         </div>
       </div>

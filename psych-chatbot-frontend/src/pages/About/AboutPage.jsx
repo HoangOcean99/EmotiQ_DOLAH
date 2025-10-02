@@ -1,8 +1,9 @@
 import React from "react";
 import NavBar from "../../components/layout/NavBar";
-import "./About.css";
+import { useNavigate } from "react-router-dom";
 
 const AboutPage = () => {
+  const navigate = new useNavigate();
   return (
     <div>
       <NavBar />
@@ -10,8 +11,8 @@ const AboutPage = () => {
         style={{
           minHeight: "100vh",
           width: "100vw",
-          margin: 0,
-          padding: "20% 5% 60px",
+          margin: "0px",
+          padding: "200px 5% 60px",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
           boxSizing: "border-box",
         }}
@@ -21,7 +22,7 @@ const AboutPage = () => {
             <h1
               style={{
                 color: "#543725",
-                fontSize: "55px",
+                fontSize: "48px",
                 fontWeight: "bold",
                 marginBottom: "20px",
                 marginTop: "-10px",
@@ -165,31 +166,10 @@ const AboutPage = () => {
               We empower your experiences with encouragement and positivity.
             </p>
           </div>
-
-          {/* Card 6 */}
-          <div>
-            <div style={{ display: "flex" }}>
-              <img src="/SelfAwareness.png" width={"50px"} />
-              <h3
-                style={{
-                  margin: "10px 0",
-                  fontSize: "20px",
-                  fontWeight: "700",
-                  color: "black",
-                }}
-              >
-                Self-Awareness
-              </h3>
-            </div>
-            <p style={{ color: "#555", fontSize: "15px", lineHeight: 1.6 }}>
-              We empower your experiences with encouragement and positivity.
-            </p>
-          </div>
         </div>
 
         <div style={{ marginTop: "60px", textAlign: "center" }}>
           <button
-            className="start-button"
             style={{
               backgroundColor: "#DE8A4D",
               border: "none",
@@ -201,12 +181,13 @@ const AboutPage = () => {
               cursor: "pointer",
               boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
             }}
+            onClick={() => navigate('/login')}
           >
-            Khám phá EmotiQ
+            Explore EmotiQ
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

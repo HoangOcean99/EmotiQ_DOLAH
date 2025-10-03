@@ -4,16 +4,17 @@ import "./Blog.css";
 
 const Blog = () => {
   return (
-    <div>
+    <div style={{
+      width: "100%",
+      margin: "0",
+      minHeight: "100vh",
+      padding: "12% 0 0 0",
+      backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
+      backgroundSize: "cover",
+    }}>
       <NavBar />
       <div
-        style={{
-          width: "100%",
-          margin: "0",
-          minHeight: "100vh",
-          padding: "12% 0 0 0",
-          backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
-        }}
+        
       >
         <div style={{ display: "flex" }}>
           <div style={{ flexGrow: 1, padding: "2% 5% 0 4%" }}>

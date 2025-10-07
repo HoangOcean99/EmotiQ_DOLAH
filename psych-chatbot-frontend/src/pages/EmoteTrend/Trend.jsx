@@ -1,11 +1,9 @@
 import React from "react";
 import "./Trend.css";
-import Sidebar from "../../components/layout/SideBar/SideBar";
 
 function EmoteTrend() {
   return (
     <div>
-        <Sidebar/>
       <div className="emote-trend-container">
         {/* Header */}
         <div className="emote-trend-header">

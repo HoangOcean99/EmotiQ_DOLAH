@@ -1,3 +1,4 @@
+import { signOut } from "firebase/auth";
 import { auth, googleProvider, signInWithPopup } from "../configs/firebase";
 
 async function loginWithGoogle() {
@@ -10,5 +11,12 @@ async function loginWithGoogle() {
         throw error;
     }
 };
+async function logout() {
+    try {
+        await signOut(auth);
+    } catch (error) {
+        throw error;
+    }
+};
 
-export default { loginWithGoogle };
+export default { loginWithGoogle, logout };

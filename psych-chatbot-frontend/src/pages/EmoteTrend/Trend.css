@@ -1,372 +1,456 @@
+/* Updated wrapper and header to match MainChat structure */
+.emote-trend-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: 280px;
+  background: #fff8f0;
+}
+
+.emote-trend-header {
+  background: linear-gradient(135deg, #d97e4a 0%, #e89b3c 100%);
+  padding: 20px 30px;
+  box-shadow: 0 2px 8px rgba(217, 126, 74, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.emote-trend-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.emote-trend-header-content h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.header-emoji {
+  font-size: 32px;
+}
+
 .emote-trend-container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #faf3e0 0%, #f5e6d3 100%);
-    /* Significantly increased top padding to prevent header from being cut off */
-    padding: 40px 50px 30px 80px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-    overflow-y: auto;
-    /* Added margin-top to push content down */
-    margin-top: 415px;
-    margin-left: 310px;
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.emote-trend-content {
+  display: flex;
+  gap: 30px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .emote-trend-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* Increased bottom margin for better spacing */
-    margin-bottom: 50px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+}
+
+.main-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Simplified hero section styling */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(217, 126, 74, 0.15);
+  border: 2px solid #f5dcc8;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(217, 126, 74, 0.25);
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #5c3d2e;
+  margin: 0 0 8px 0;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  color: #8b6f47;
+  margin: 0;
+  font-weight: 500;
+}
+
+.hero-emoji {
+  font-size: 60px;
+  background: linear-gradient(135deg, #f4d03f 0%, #f39c12 100%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+}
+
+.mood-graph-section {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(217, 126, 74, 0.15);
+  border: 2px solid #f5dcc8;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.mood-graph-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(217, 126, 74, 0.25);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #5c3d2e;
+  margin: 0 0 20px 0;
+}
+
+.mood-graph {
+  padding: 20px 0;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.chart-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(217, 126, 74, 0.15);
+  border: 2px solid #f5dcc8;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chart-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(217, 126, 74, 0.25);
+}
+
+.donut-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #5c3d2e;
+  font-weight: 500;
+}
+
+.legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved bar chart layout */
+.bar-chart {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.week-labels {
+  display: flex;
+  gap: 20px;
+}
+
+.week-label {
+  flex: 1;
+  font-size: 14px;
+  color: #999;
+  font-weight: 500;
+  text-align: center;
+}
+
+.week-label.active {
+  color: #d97e4a;
+  font-weight: 700;
+}
+
+.bars {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  height: 140px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 12px 12px 0 0;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 8px rgba(217, 126, 74, 0.2);
+}
+
+.bar:hover {
+  transform: translateY(-8px);
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.15);
+}
+
+.right-sidebar {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.summary-card,
+.suggestions-card,
+.goal-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(217, 126, 74, 0.15);
+  border: 2px solid #f5dcc8;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.summary-card:hover,
+.suggestions-card:hover,
+.goal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(217, 126, 74, 0.25);
+}
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #5c3d2e;
+  margin: 0 0 20px 0;
+}
+
+.average-mood {
+  margin-bottom: 20px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #8b6f47;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.mood-percentage {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mood-percentage .emoji {
+  font-size: 40px;
+  background: linear-gradient(135deg, #f4d03f 0%, #f39c12 100%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+}
+
+.mood-percentage .percentage {
+  font-size: 40px;
+  font-weight: 700;
+  color: #d97e4a;
+}
+
+.summary-row {
+  display: flex;
+  gap: 20px;
+}
+
+.summary-item {
+  flex: 1;
+}
+
+.summary-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #5c3d2e;
+  margin: 5px 0 0 0;
+}
+
+/* Simplified suggestions card with emoji mascot */
+.suggestions-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.suggestion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.bear-mascot {
+  font-size: 80px;
+  background: linear-gradient(135deg, #f4d03f 0%, #f39c12 100%);
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+}
+
+.suggestion-text {
+  font-size: 14px;
+  color: #5c3d2e;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Updated button to match MainChat style */
+.try-now-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #d97e4a 0%, #e89b3c 100%);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(217, 126, 74, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.try-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 126, 74, 0.5);
+}
+
+.btn-icon {
+  font-size: 18px;
+}
+
+.goal-card {
+  min-height: 140px;
+}
+
+.goal-placeholder {
+  font-size: 14px;
+  color: #8b6f47;
+  text-align: center;
+  margin: 20px 0;
+  font-style: italic;
+}
+
+@media (max-width: 1200px) {
+  .emote-trend-wrapper {
+    margin-left: 0;
   }
-  
-  .logo-icon {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .page-title {
-    font-size: 42px;
-    font-weight: 700;
-    color: #2c2c2c;
-    margin: 0;
-  }
-  
-  .user-profile-icon {
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  .user-profile-icon:hover {
-    transform: scale(1.05);
-  }
-  
-  .emote-trend-content {
-    display: flex;
-    gap: 30px;
-  }
-  
-  .main-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  
-  .hero-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* Reduced padding for more compact layout */
-    padding: 25px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  .hero-title {
-    /* Slightly reduced font size for better fit */
-    font-size: 26px;
-    font-weight: 600;
-    color: #2c2c2c;
-    line-height: 1.4;
-    margin: 0;
-  }
-  
-  .hero-emoji {
-    font-size: 60px;
-    background: #f4d03f;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .mood-graph-section {
-    background: white;
-    border-radius: 20px;
-    /* Reduced padding for more compact layout */
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  .section-title {
-    /* Slightly reduced font size and margin */
-    font-size: 20px;
-    font-weight: 600;
-    color: #2c2c2c;
-    margin: 0 0 20px 0;
-  }
-  
-  .mood-graph {
-    /* Reduced padding */
-    padding: 15px 0;
-  }
-  
+
   .charts-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* Reduced gap for more compact layout */
-    gap: 15px;
+    grid-template-columns: 1fr;
   }
-  
-  .chart-card {
-    background: white;
-    border-radius: 20px;
-    /* Reduced padding */
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  .donut-chart-container {
-    display: flex;
+
+  .emote-trend-content {
     flex-direction: column;
-    align-items: center;
-    /* Reduced gap */
-    gap: 15px;
-    margin: 15px 0;
   }
-  
-  .chart-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+
+  .right-sidebar {
+    width: 100%;
   }
-  
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: #555;
+}
+
+@media (max-width: 768px) {
+  .emote-trend-header {
+    padding: 15px 20px;
   }
-  
-  .legend-color {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-  }
-  
-  .new-day-text {
-    font-size: 18px;
-    color: #666;
-    /* Reduced top margin */
-    margin: 10px 0 0 0;
-  }
-  
-  .new-day-text span {
-    color: #e89b3c;
-    font-weight: 700;
+
+  .emote-trend-header-content h1 {
     font-size: 22px;
   }
-  
-  .bar-chart {
-    /* Reduced top margin */
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+
+  .header-emoji {
+    font-size: 26px;
   }
-  
-  .week-label {
-    font-size: 16px;
-    color: #999;
-    font-weight: 500;
-  }
-  
-  .week-label.active {
-    color: #e89b3c;
-    font-weight: 700;
-  }
-  
-  .bars {
-    display: flex;
-    gap: 15px;
-    align-items: flex-end;
-    /* Reduced height for more compact layout */
-    height: 120px;
-  }
-  
-  .bar {
-    flex: 1;
-    border-radius: 8px 8px 0 0;
-    transition: transform 0.3s;
-  }
-  
-  .bar:hover {
-    transform: translateY(-5px);
-  }
-  
-  .emotion-hours .heatmap {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 8px;
-    /* Reduced top margin */
-    margin-top: 15px;
-  }
-  
-  .heatmap-cell {
-    aspect-ratio: 1;
-    border-radius: 6px;
-    transition: transform 0.2s;
-  }
-  
-  .heatmap-cell:hover {
-    transform: scale(1.1);
-  }
-  
-  .right-sidebar {
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    /* Reduced gap between cards */
-    gap: 15px;
-  }
-  
-  .summary-card,
-  .suggestions-card,
-  .goal-card {
-    background: white;
-    border-radius: 20px;
-    /* Reduced padding */
+
+  .emote-trend-container {
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
-  
-  .sidebar-title {
-    /* Slightly reduced font size and margin */
-    font-size: 18px;
-    font-weight: 700;
-    color: #2c2c2c;
-    margin: 0 0 15px 0;
-  }
-  
-  .average-mood {
-    /* Reduced bottom margin */
-    margin-bottom: 15px;
-  }
-  
-  .summary-label {
-    font-size: 14px;
-    color: #666;
-    margin: 0 0 10px 0;
-  }
-  
-  .mood-percentage {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .mood-percentage .emoji {
-    font-size: 40px;
-    background: #f4d03f;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .mood-percentage .percentage {
-    font-size: 36px;
-    font-weight: 700;
-    color: #2c2c2c;
-  }
-  
-  .summary-row {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .summary-item {
-    flex: 1;
-  }
-  
-  .summary-value {
-    font-size: 16px;
-    font-weight: 600;
-    color: #2c2c2c;
-    margin: 5px 0 0 0;
-  }
-  
-  .suggestions-card {
-    display: flex;
+
+  .hero-section {
     flex-direction: column;
-    align-items: center;
     gap: 20px;
-  }
-  
-  .suggestion-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Reduced gap */
-    gap: 12px;
-  }
-  
-  .bear-mascot {
-    /* Reduced size for more compact layout */
-    width: 100px;
-    height: 100px;
-  }
-  
-  .suggestion-text {
-    font-size: 14px;
-    color: #555;
     text-align: center;
-    line-height: 1.6;
-    margin: 0;
   }
-  
-  .try-now-btn {
-    width: 100%;
-    /* Reduced padding */
-    padding: 12px;
-    background: linear-gradient(135deg, #f39c12 0%, #e89b3c 100%);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    /* Slightly reduced font size */
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+
+  .hero-text {
+    text-align: center;
   }
-  
-  .try-now-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(232, 155, 60, 0.4);
-  }
-  
-  .goal-card {
-    /* Reduced min-height */
-    min-height: 120px;
-  }
-  
-  @media (max-width: 1200px) {
-    .charts-row {
-      grid-template-columns: 1fr;
-    }
-  
-    .emote-trend-content {
-      flex-direction: column;
-    }
-  
-    .right-sidebar {
-      width: 100%;
-    }
-  }
-  
+}

@@ -6,7 +6,7 @@ function EmoteTrend() {
     <div className="emote-trend-wrapper">
       <header className="emote-trend-header">
         <div className="emote-trend-header-content">
-          <span className="header-emoji">📊</span>
+          <img className="header-emoji" src="XuHuongCamxuc.png" width={40} height={40} />
           <h1>Xu hướng cảm xúc</h1>
         </div>
       </header>

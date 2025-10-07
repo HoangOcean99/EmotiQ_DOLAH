@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../../components/layout/NavBar";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,13 +6,12 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <NavBar />
+    <div>
       <div
         style={{
           width: "100vw",
-          margin: "0",
-          padding: "10% 0 0 0",
+          minHeight: "100vh",
+          marginTop: "18%",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
         }}
       >
@@ -180,7 +178,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

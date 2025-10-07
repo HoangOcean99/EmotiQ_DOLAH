@@ -1,19 +1,16 @@
 import React from "react";
-import NavBar from "../../components/layout/NavBar";
 import { useNavigate } from "react-router-dom";
 import "./About.css";
 
 const AboutPage = () => {
   const navigate = new useNavigate();
   return (
-    <div>
-      <NavBar />
       <div
         style={{
           minHeight: "100vh",
           width: "100vw",
-          margin: "0px",
-          padding: "15% 5% 10px",
+          marginTop: "24%",
+          padding: "0 5% 5% 5%",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
           boxSizing: "border-box",
         }}
@@ -195,7 +192,6 @@ const AboutPage = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

@@ -84,9 +84,30 @@ const NavBar = () => {
           alt="EmotiQ"
           width={"80px"}
           height={"80px"}
-          style={{ objectFit: "contain" }}
+          style={{ objectFit: "contain", cursor: "pointer" }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = "scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = "scale(1)";
+          }}
+          onClick={() => navigate("/")}
         />
-        <p style={{ fontSize: "45px", color: "#543725", fontWeight: "bold", cursor: "pointer" }} onClick={() => navigate('/')}>
+        <p
+          style={{
+            fontSize: "45px",
+            color: "#543725",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = "scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = "scale(1)";
+          }}
+          onClick={() => navigate("/")}
+        >
           EmotiQ
         </p>
       </div>
@@ -100,7 +121,7 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonStyle);
           }}
-          onClick={() => navigate('/about')}
+          onClick={() => navigate("/about")}
         >
           About
         </button>
@@ -112,7 +133,7 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonStyle);
           }}
-          onClick={() => navigate('/blog')}
+          onClick={() => navigate("/blog")}
         >
           Blog
         </button>
@@ -124,7 +145,7 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonStyle);
           }}
-          onClick={() => navigate('/contactus')}
+          onClick={() => navigate("/contactus")}
         >
           Contact Us
         </button>
@@ -150,7 +171,7 @@ const NavBar = () => {
           onMouseLeave={(e) => {
             Object.assign(e.target.style, buttonSignUp_1);
           }}
-          onClick={() => navigate('/login')}
+          onClick={() => navigate("/login")}
         >
           {/* Sign up */}
           Log in

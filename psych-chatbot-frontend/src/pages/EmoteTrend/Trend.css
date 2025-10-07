@@ -1,0 +1,372 @@
+.emote-trend-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #faf3e0 0%, #f5e6d3 100%);
+    /* Significantly increased top padding to prevent header from being cut off */
+    padding: 40px 50px 30px 80px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+    overflow-y: auto;
+    /* Added margin-top to push content down */
+    margin-top: 415px;
+    margin-left: 310px;
+  }
+  
+  .emote-trend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Increased bottom margin for better spacing */
+    margin-bottom: 50px;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .logo-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .page-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2c2c2c;
+    margin: 0;
+  }
+  
+  .user-profile-icon {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .user-profile-icon:hover {
+    transform: scale(1.05);
+  }
+  
+  .emote-trend-content {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .main-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Reduced padding for more compact layout */
+    padding: 25px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .hero-title {
+    /* Slightly reduced font size for better fit */
+    font-size: 26px;
+    font-weight: 600;
+    color: #2c2c2c;
+    line-height: 1.4;
+    margin: 0;
+  }
+  
+  .hero-emoji {
+    font-size: 60px;
+    background: #f4d03f;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mood-graph-section {
+    background: white;
+    border-radius: 20px;
+    /* Reduced padding for more compact layout */
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .section-title {
+    /* Slightly reduced font size and margin */
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin: 0 0 20px 0;
+  }
+  
+  .mood-graph {
+    /* Reduced padding */
+    padding: 15px 0;
+  }
+  
+  .charts-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Reduced gap for more compact layout */
+    gap: 15px;
+  }
+  
+  .chart-card {
+    background: white;
+    border-radius: 20px;
+    /* Reduced padding */
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .donut-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Reduced gap */
+    gap: 15px;
+    margin: 15px 0;
+  }
+  
+  .chart-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+  
+  .new-day-text {
+    font-size: 18px;
+    color: #666;
+    /* Reduced top margin */
+    margin: 10px 0 0 0;
+  }
+  
+  .new-day-text span {
+    color: #e89b3c;
+    font-weight: 700;
+    font-size: 22px;
+  }
+  
+  .bar-chart {
+    /* Reduced top margin */
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .week-label {
+    font-size: 16px;
+    color: #999;
+    font-weight: 500;
+  }
+  
+  .week-label.active {
+    color: #e89b3c;
+    font-weight: 700;
+  }
+  
+  .bars {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    /* Reduced height for more compact layout */
+    height: 120px;
+  }
+  
+  .bar {
+    flex: 1;
+    border-radius: 8px 8px 0 0;
+    transition: transform 0.3s;
+  }
+  
+  .bar:hover {
+    transform: translateY(-5px);
+  }
+  
+  .emotion-hours .heatmap {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+    /* Reduced top margin */
+    margin-top: 15px;
+  }
+  
+  .heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    transition: transform 0.2s;
+  }
+  
+  .heatmap-cell:hover {
+    transform: scale(1.1);
+  }
+  
+  .right-sidebar {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    /* Reduced gap between cards */
+    gap: 15px;
+  }
+  
+  .summary-card,
+  .suggestions-card,
+  .goal-card {
+    background: white;
+    border-radius: 20px;
+    /* Reduced padding */
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .sidebar-title {
+    /* Slightly reduced font size and margin */
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c2c2c;
+    margin: 0 0 15px 0;
+  }
+  
+  .average-mood {
+    /* Reduced bottom margin */
+    margin-bottom: 15px;
+  }
+  
+  .summary-label {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 10px 0;
+  }
+  
+  .mood-percentage {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .mood-percentage .emoji {
+    font-size: 40px;
+    background: #f4d03f;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mood-percentage .percentage {
+    font-size: 36px;
+    font-weight: 700;
+    color: #2c2c2c;
+  }
+  
+  .summary-row {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .summary-item {
+    flex: 1;
+  }
+  
+  .summary-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin: 5px 0 0 0;
+  }
+  
+  .suggestions-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .suggestion-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Reduced gap */
+    gap: 12px;
+  }
+  
+  .bear-mascot {
+    /* Reduced size for more compact layout */
+    width: 100px;
+    height: 100px;
+  }
+  
+  .suggestion-text {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .try-now-btn {
+    width: 100%;
+    /* Reduced padding */
+    padding: 12px;
+    background: linear-gradient(135deg, #f39c12 0%, #e89b3c 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    /* Slightly reduced font size */
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .try-now-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232, 155, 60, 0.4);
+  }
+  
+  .goal-card {
+    /* Reduced min-height */
+    min-height: 120px;
+  }
+  
+  @media (max-width: 1200px) {
+    .charts-row {
+      grid-template-columns: 1fr;
+    }
+  
+    .emote-trend-content {
+      flex-direction: column;
+    }
+  
+    .right-sidebar {
+      width: 100%;
+    }
+  }
+  

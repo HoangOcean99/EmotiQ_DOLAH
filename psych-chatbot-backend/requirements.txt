@@ -3,6 +3,6 @@ uvicorn
 pydantic
 python-dotenv
 requests
-sentence-transformers>=2.2.2
+sentence-transformers
 qdrant-client>=1.7.0
 numpy

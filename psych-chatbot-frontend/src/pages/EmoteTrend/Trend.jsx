@@ -41,7 +41,7 @@ function EmoteTrend() {
                       😢
                     </text>
                     <text x="80" y="170" textAnchor="middle" fontSize="14" fill="#666">
-                      Monday
+                      Thứ 2
                     </text>
                   </g>
                   <g>
@@ -50,7 +50,7 @@ function EmoteTrend() {
                       😐
                     </text>
                     <text x="220" y="160" textAnchor="middle" fontSize="14" fill="#666">
-                      Thu 3
+                      Thứ 3
                     </text>
                   </g>
                   <g>
@@ -59,7 +59,7 @@ function EmoteTrend() {
                       😊
                     </text>
                     <text x="360" y="130" textAnchor="middle" fontSize="14" fill="#666">
-                      Thu 4
+                      Thứ 4
                     </text>
                   </g>
                   <g>
@@ -68,7 +68,7 @@ function EmoteTrend() {
                       😄
                     </text>
                     <text x="500" y="110" textAnchor="middle" fontSize="14" fill="#666">
-                      Sunday
+                      Thứ 5
                     </text>
                   </g>
                   <g>
@@ -77,7 +77,7 @@ function EmoteTrend() {
                       😃
                     </text>
                     <text x="640" y="100" textAnchor="middle" fontSize="14" fill="#666">
-                      Sunday
+                      Thứ 6
                     </text>
                   </g>
                 </svg>

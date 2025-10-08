@@ -9,7 +9,7 @@ const Blog = () => {
         width: "100%",
         margin: "0",
         minHeight: "100vh",
-        marginTop: "24%",
+        marginTop: "26%",
         paddingBottom: "5%",
         backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
         backgroundSize: "cover",

@@ -1,7 +1,28 @@
+# Core API
 fastapi
 uvicorn
+
+# Data validation
 pydantic
 python-dotenv
-requests
-sentence-transformers
 
+# HTTP requests
+requests
+
+# Embedding / NLP
+sentence-transformers
+transformers
+torch
+numpy
+scikit-learn
+
+# Vector database
+qdrant-client
+
+# Optional (an toàn hơn khi deploy)
+gunicorn
+jinja2
+
+# For JSON handling and async ops
+orjson
+anyio

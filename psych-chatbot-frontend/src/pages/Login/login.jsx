@@ -27,7 +27,7 @@ const Login = () => {
           <h2>Login</h2>
           <p className="or"> login with social platforms</p>
           <div className="social-icons">
-            <button className="social-btn" onClick={() => handleLoginGoogle()}><img src="src/assets/ggicon-Photoroom.png" alt="" /></button>
+            <button className="social-btn" onClick={() => handleLoginGoogle()}><img src="/ggicon-Photoroom.png" alt="" /></button>
           </div>
         </div>
       </div>

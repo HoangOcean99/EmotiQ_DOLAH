@@ -3,30 +3,41 @@ from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 from qdrant_client.models import PointStruct, Distance, VectorParams
-from qdrant_client.http.exceptions import UnexpectedResponse
-from fastapi.middleware.cors import CORSMiddleware 
-
-
+from fastapi.middleware.cors import CORSMiddleware
 import uuid
 import requests
+import numpy as np
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
-
+# ----- CORS -----
+origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,     
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],         
-    allow_headers=["*"],       
-)  
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+# ----- Model lazy load -----
+model = None
+def get_model():
+    global model
+    if model is None:
+        # Model chính xác hơn nhưng vẫn vừa phải (~120MB)
+        model = SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
+    return model
 
+# ----- Vector normalization -----
+def normalize(vec):
+    vec = np.array(vec)
+    norm = np.linalg.norm(vec)
+    if norm == 0:
+        return vec.tolist()
+    return (vec / norm).tolist()
+
+# ----- Qdrant setup -----
 qdrant = None
 try:
     qdrant = QdrantClient(
@@ -34,152 +45,86 @@ try:
         api_key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.8bhRFPtvi4GXj2UV3P_sy-uK-K6pqz1uJjDYvyymd28",
         timeout=10
     )
-
-    # Thử gọi info để check kết nối
-    info = qdrant.get_collections()
-    print("✅ Kết nối thành công Qdrant:", info)
-
-except UnexpectedResponse as e:
-    print("❌ Lỗi từ Qdrant API:", e)
+    collections = [c.name for c in qdrant.get_collections().collections]
+    if "chat" not in collections:
+        qdrant.create_collection(
+            collection_name="chat",
+            vectors_config=VectorParams(size=384, distance=Distance.COSINE)
+        )
 except Exception as e:
-    print("❌ Không kết nối được Qdrant:", e)
+    print("❌ Lỗi Qdrant:", e)
 
-
-
-if qdrant:
-    try:
-        collections = qdrant.get_collections().collections
-        collection_names = [c.name for c in collections]
-
-        if "chat" in collection_names:
-            print("⚠️ Collection 'chat' đã có")
-        else:
-            qdrant.create_collection(
-                collection_name="chat",
-                vectors_config=VectorParams(
-                    size=384,
-                    distance=Distance.COSINE
-                )
-            )
-            print("✅ Collection 'chat' đã tạo mới")
-    except Exception as e:
-        print("❌ Lỗi khi kiểm tra/tạo collection:", e)
-
-
+# ----- Pydantic models -----
 class TextInput(BaseModel):
     text: str
 
+class QueryInput(BaseModel):
+    query: str
+    top_k: int = 1
+    min_score: float = 0.3  # lọc score thấp
 
-# them du lieu
+# ----- Add text endpoint -----
 @app.post("/add_text")
 def add_text(item: TextInput):
     if not qdrant:
         return {"status": "error", "message": "Qdrant chưa kết nối"}
 
     try:
-        # Encode văn bản thành vector
-        vector = model.encode(item.text).tolist()
+        vector = normalize(get_model().encode(item.text))
         point_id = str(uuid.uuid4())
-
-        # Thêm point vào Qdrant
         qdrant.upsert(
             collection_name="chat",
-            points=[
-                PointStruct(
-                    id=point_id,
-                    vector=vector,
-                    payload={"text": item.text}
-                )
-            ]
+            points=[PointStruct(id=point_id, vector=vector, payload={"text": item.text})]
         )
-
         return {"status": "success", "id": point_id, "text": item.text}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-
-class QueryInput(BaseModel):
-    query: str
-    top_k: int = 1 
-
-
+# ----- Google search fallback -----
 GOOGLE_API_KEY = "AIzaSyB5vFZTdPG2daYieWZVT18dZ8rSdfxsTJE"
 GOOGLE_CX = "b1674b0b3f51c4adb"
 
 def google_search(query: str, num: int = 3):
-    url = "https://www.googleapis.com/customsearch/v1"
-    params = {
-        "key": GOOGLE_API_KEY,
-        "cx": GOOGLE_CX,
-        "q": query,
-        "num": num
-    }
-    response = requests.get(url, params=params)
-    data = response.json()
+    try:
+        url = "https://www.googleapis.com/customsearch/v1"
+        params = {"key": GOOGLE_API_KEY, "cx": GOOGLE_CX, "q": query, "num": num}
+        response = requests.get(url, params=params)
+        data = response.json()
+        results = [{"text": i.get("snippet", ""), "url": i.get("link", "")} for i in data.get("items", [])]
+        return results
+    except:
+        return []
 
-    results = []
-    for item in data.get("items", []):
-        snippet = item.get("snippet", "")
-        link = item.get("link", "")
-        results.append({"text": snippet, "url": link})
-
-    return results
-
-
+# ----- Search endpoint -----
 @app.post("/search")
 def search_text(item: QueryInput):
     if not qdrant:
         return {"status": "error", "message": "Qdrant chưa kết nối"}
 
     try:
-        # Encode câu hỏi thành vector
-        query_vector = model.encode(item.query).tolist()
+        query_vector = normalize(get_model().encode(item.query))
+        results = qdrant.search(collection_name="chat", query_vector=query_vector, limit=item.top_k * 5)
 
-        # Tìm trong Qdrant
-        results = qdrant.search(
-            collection_name="chat",
-            query_vector=query_vector,
-            limit=item.top_k
-        )
+        # lọc score thấp
+        hits = [{"text": r.payload.get("text", ""), "score": r.score} 
+                for r in results 
+                if r.payload and r.score >= item.min_score]
 
-        hits = []
-        for r in results:
-            payload = r.payload or {}
-            hits.append({
-                "text": payload.get("text", ""),
-                "score": r.score
-            })
-
-        # Nếu không có kết quả trong DB → tìm Google
+        # fallback Google nếu DB trống
         if not hits:
             web_results = google_search(item.query, item.top_k)
-
-            # Lưu vào Qdrant
             for wr in web_results:
-                vector = model.encode(wr["text"]).tolist()
-                point_id = str(uuid.uuid4())
+                vector = normalize(get_model().encode(wr["text"]))
                 qdrant.upsert(
                     collection_name="chat",
-                    points=[
-                        PointStruct(
-                            id=point_id,
-                            vector=vector,
-                            payload={"text": wr["text"], "url": wr["url"]}
-                        )
-                    ]
+                    points=[PointStruct(id=str(uuid.uuid4()), vector=vector, payload=wr)]
                 )
+            return {"status": "from_web", "query": item.query, "results": web_results}
 
-            return {
-                "status": "from_web",
-                "query": item.query,
-                "results": web_results
-            }
+        # chỉ lấy top_k sau khi lọc
+        hits = sorted(hits, key=lambda x: x["score"], reverse=True)[:item.top_k]
 
-        return {
-            "status": "from_db",
-            "query": item.query,
-            "results": hits
-        }
+        return {"status": "from_db", "query": item.query, "results": hits}
 
     except Exception as e:
         return {"status": "error", "message": str(e)}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./MainChat.css";
+import handleSearch from "../../api/callApi";
 
 const MainChat = () => {
     const [messages, setMessages] = useState([
@@ -7,20 +8,23 @@ const MainChat = () => {
     ]);
     const [input, setInput] = useState("");
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (!input.trim()) return;
 
         const newMessages = [...messages, { sender: "user", text: input }];
         setMessages(newMessages);
         setInput("");
 
+        const response = await handleSearch(newMessages);
+        console.log(response);
+
         // fake AI trả lời
-        setTimeout(() => {
-            setMessages((prev) => [
-                ...prev,
-                { sender: "ai", text: "Mình vừa nhận: " + input },
-            ]);
-        }, 1000);
+        // setTimeout(() => {
+        //     setMessages((prev) => [
+        //         ...prev,
+        //         { sender: "ai", text: "Mình vừa nhận: " + input },
+        //     ]);
+        // }, 1000);
     };
 
     return (

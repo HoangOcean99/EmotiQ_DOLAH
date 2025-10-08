@@ -9,7 +9,7 @@ const AboutPage = () => {
         style={{
           minHeight: "100vh",
           width: "100vw",
-          marginTop: "24%",
+          marginTop: "30%",
           padding: "0 5% 5% 5%",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
           boxSizing: "border-box",

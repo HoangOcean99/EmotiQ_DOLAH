@@ -11,14 +11,15 @@ const Home = () => {
         style={{
           width: "100vw",
           minHeight: "100vh",
-          marginTop: "18%",
+          marginTop: "23%",
+          paddingBottom: "5%",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
         }}
       >
         <div>
           <div style={{ display: "flex" }}>
             <div style={{ width: "55%", margin: "0px 0px 0px 3%" }}>
-              <h1 style={{ color: "#543725", fontSize: "70px" }}>
+              <h1 style={{ color: "#543725", fontSize: "65px" }}>
                 Người bạn tâm lý 24/7 !
               </h1>
               <p style={{ color: "#543725", fontSize: "25px" }}>

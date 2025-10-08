@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-pydantic
-python-dotenv
-requests
-sentence-transformers
-qdrant-client>=1.7.0
-numpy

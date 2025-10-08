@@ -4,12 +4,26 @@ from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 from qdrant_client.models import PointStruct, Distance, VectorParams
 from qdrant_client.http.exceptions import UnexpectedResponse
+from fastapi.middleware.cors import CORSMiddleware 
 
 
 import uuid
 import requests
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,     
+    allow_credentials=True,
+    allow_methods=["*"],         
+    allow_headers=["*"],       
+)  
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -86,7 +100,7 @@ def add_text(item: TextInput):
 
 class QueryInput(BaseModel):
     query: str
-    top_k: int = 1  # mặc định lấy 3 kết quả gần nhất
+    top_k: int = 1 
 
 
 GOOGLE_API_KEY = "AIzaSyB5vFZTdPG2daYieWZVT18dZ8rSdfxsTJE"

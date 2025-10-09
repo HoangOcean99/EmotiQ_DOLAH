@@ -89,7 +89,7 @@ const Blog = () => {
                 color: "black",
               }}
             >
-              5 ý tưởng cuối tuần cho tinh thần phấn chấn
+              Những hành động nhỏ giúp buổi sáng tỉnh táo, phấn khởi
             </h3>
           </div>
           <p style={{ color: "#555", fontSize: "15px", lineHeight: 1.6 }}>
@@ -109,7 +109,7 @@ const Blog = () => {
                 color: "black",
               }}
             >
-              .....
+              5 thói quen giúp bản thân tràn đầy động lực
             </h3>
           </div>
           <p style={{ color: "#555", fontSize: "15px", lineHeight: 1.6 }}>

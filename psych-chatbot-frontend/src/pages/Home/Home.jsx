@@ -11,7 +11,7 @@ const Home = () => {
         style={{
           width: "100vw",
           minHeight: "100vh",
-          marginTop: "23%",
+          marginTop: "22%",
           paddingBottom: "5%",
           backgroundImage: "linear-gradient(to right, #FFF8EE, #FFF2E0)",
         }}

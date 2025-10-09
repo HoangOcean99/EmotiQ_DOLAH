@@ -11,7 +11,7 @@ export default function DreamAnalysis() {
       id: 1,
       date: "15/01/2025",
       summary: "Gặp người yêu cũ",
-      emotion: "Cháy",
+      emotion: "Oách xà lách",
     },
     {
       id: 2,
@@ -64,10 +64,18 @@ export default function DreamAnalysis() {
 
   return (
     <div className="dream-analysis-wrapper">
-      <div className="dream-analysis-header">
-        <h1>Phân tích giấc mơ 🌙</h1>
-      </div>
-
+      <header className="dream-analysis-header">
+        <div div className="dream-analysis-header-content">
+          <img
+            src="DreamAnalysis.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="header-emoji"
+          />
+          <h1>Phân tích giấc mơ</h1>
+        </div>
+      </header>
       <div className="dream-analysis-container">
         <div className="dream-main-content">
           <div className="dream-input-section">
@@ -151,7 +159,6 @@ export default function DreamAnalysis() {
               <li>Ghi lại ngay khi thức dậy</li>
               <li>Chú ý đến cảm xúc trong mơ</li>
               <li>Ghi nhớ chi tiết màu sắc, âm thanh</li>
-              <li>Không phán xét, chỉ ghi chép</li>
             </ul>
           </div>
         </div>

@@ -9,13 +9,13 @@ export default function DreamAnalysis() {
   const [dreamHistory, setDreamHistory] = useState([
     {
       id: 1,
-      date: "15/01/2025",
+      date: "01/10/2025",
       summary: "Gặp người yêu cũ",
       emotion: "Oách xà lách",
     },
     {
       id: 2,
-      date: "12/01/2025",
+      date: "12/09/2025",
       summary: "Cưới vợ giàu",
       emotion: "Oách xà lách",
     },

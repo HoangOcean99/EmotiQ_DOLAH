@@ -32,6 +32,7 @@ body {
 /* New header with logo */
 .login-header {
   margin-bottom: 30px;
+  margin-left: 24%;
 }
 
 .logo-container {
